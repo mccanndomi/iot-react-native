@@ -54,6 +54,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
+        initialRouteName="Battery"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -77,12 +78,15 @@ export default function App() {
           },
         })}
         tabBarOptions={{
-          activeTintColor: "midnightblue",
-          inactiveTintColor: "gray",
+          activeTintColor: "#8e96d1",
+          inactiveTintColor: "#1c1e2f",
+          activeBackgroundColor: "#10111c",
+          inactiveBackgroundColor: "#10111c",
+          style: styles.tabContainer,
         }}
       >
-        <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Stats" component={Stats} />
+        <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Battery" component={Battery} />
       </Tab.Navigator>
     </NavigationContainer>
@@ -95,5 +99,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  tabContainer: {
+    borderTopWidth: 0,
   },
 });

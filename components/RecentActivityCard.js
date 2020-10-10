@@ -13,7 +13,7 @@ const RecentActivityCard = (props) => {
       <MaterialCommunityIcons
         name={props.icon}
         size={35}
-        color="white"
+        color="#8e96d1"
         style={{ padding: 8 }}
       ></MaterialCommunityIcons>
       <Text style={styles.text}>{props.label}</Text>
@@ -30,12 +30,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    color: "white",
+    color: "#ced2f2",
     fontSize: 22,
     fontWeight: "bold",
   },
   value: {
-    color: "white",
+    color: "#858cc7",
     fontSize: 18,
+    paddingTop: 10,
   },
 });

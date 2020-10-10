@@ -11,7 +11,7 @@ export default function Stats({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "midnightblue",
+    backgroundColor: "#1c1e2f",
     flex: 1,
   },
 });
