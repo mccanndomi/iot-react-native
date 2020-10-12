@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, View, Text, SafeAreaView, Image } from "react-native";
 import { RecentActivityCard } from "../components/RecentActivityCard";
+import {DataContext} from '../services/DataContext';
 
 const data = [
   {
@@ -31,20 +32,8 @@ const data = [
 ];
 
 export default function Home({ navigation }) {
+  const [bedBattery, diningBattery, kitchenBattery, livingBattery, toiletBattery, bedMovements, diningMovements, kitchenMovements, livingMovements, toiletMovements, lastRoom, lastDate, lastTime] = useContext(DataContext) 
   const [selectedName, setSelectedName] = useState(null);
-
-  const renderItem = ({ item }) => {
-    return (
-      <ContentRow
-        item={item}
-        onPress={() => setSelectedName(item.name)}
-        style={{
-          borderWidth: 2,
-          borderRadius: 1,
-        }}
-      ></ContentRow>
-    );
-  };
 
   return (
     <SafeAreaView style={styles.outerContainer}>
@@ -52,21 +41,21 @@ export default function Home({ navigation }) {
         <View style={styles.container}>
           <View style={styles.recentActivity}>
             <View style={styles.titleArea}>
-              <Text style={styles.title}>Recent Activity</Text>
+              <Text style={styles.title} >Recent Activity</Text>
             </View>
             <View style={styles.lowerSection}>
               <View style={styles.iconArea}>
                 <RecentActivityCard
                   icon="map-marker-circle"
                   label="Location:"
-                  value="bedroom"
+                  value={lastRoom}
                 />
               </View>
               <View style={styles.iconArea}>
                 <RecentActivityCard
                   icon="clock-alert-outline"
                   label="Notification:"
-                  value="14:25:31"
+                  value={lastTime}
                 />
               </View>
             </View>
@@ -91,7 +80,7 @@ export default function Home({ navigation }) {
               }}
             >
               <Text style={styles.roomName}>Bedroom</Text>
-              <Text style={styles.roomValue}>Movements: 6</Text>
+            <Text style={styles.roomValue}>Movements: {bedMovements}</Text>
             </View>
             <View
               style={{
@@ -107,7 +96,7 @@ export default function Home({ navigation }) {
               }}
             >
               <Text style={styles.roomName}>Kitchen</Text>
-              <Text style={styles.roomValue}>Movements: 2</Text>
+              <Text style={styles.roomValue}>Movements: {kitchenMovements}</Text>
             </View>
             <View
               style={{
@@ -123,7 +112,7 @@ export default function Home({ navigation }) {
               }}
             >
               <Text style={styles.roomName}>Living Room</Text>
-              <Text style={styles.roomValue}>Movements: 1</Text>
+            <Text style={styles.roomValue}>Movements: {livingMovements}</Text>
             </View>
             <View
               style={{
@@ -139,7 +128,7 @@ export default function Home({ navigation }) {
               }}
             >
               <Text style={styles.roomName}>Dining Room</Text>
-              <Text style={styles.roomValue}>Movements: 3</Text>
+            <Text style={styles.roomValue}>Movements: {diningMovements}</Text>
             </View>
             <View
               style={{
@@ -155,7 +144,7 @@ export default function Home({ navigation }) {
               }}
             >
               <Text style={styles.roomName}>Bathroom</Text>
-              <Text style={styles.roomValue}>Movements: 0</Text>
+              <Text style={styles.roomValue}>Movements: {toiletMovements}</Text>
             </View>
           </View>
         </View>

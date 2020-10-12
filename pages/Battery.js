@@ -1,36 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 import { BatteryRow } from "../components/BatteryRow";
+import {DataContext} from '../services/DataContext';
 
-const data = [
-  {
-    name: "Living Room",
-    icon: "lamp",
-    battery: 80,
-  },
-  {
-    name: "Bedroom",
-    icon: "bed-empty",
-    battery: 10,
-  },
-  {
-    name: "Toilet",
-    icon: "toilet",
-    battery: 26,
-  },
-  {
-    name: "Kitchen",
-    icon: "toaster-oven",
-    battery: 99,
-  },
-  {
-    name: "Dining Room",
-    icon: "seat-outline",
-    battery: 78,
-  },
-];
 
 export default function Battery({ navigation }) {
+  const [bedBattery, diningBattery, kitchenBattery, livingBattery, toiletBattery] = useContext(DataContext);
+
+  const fetchData = [
+      {
+        name: "Living Room",
+        icon: "lamp",
+        battery: livingBattery,
+      },
+      {
+        name: "Bedroom",
+        icon: "bed-empty",
+        battery: bedBattery,
+      },
+      {
+        name: "Toilet",
+        icon: "toilet",
+        battery: toiletBattery,
+      },
+      {
+        name: "Kitchen",
+        icon: "toaster-oven",
+        battery: kitchenBattery,
+      },
+      {
+        name: "Dining Room",
+        icon: "seat-outline",
+        battery: diningBattery,
+      },
+  ];
+
   const [selectedRoom, setSelectedRoom] = useState(null);
 
   const renderItem = ({ item }) => {
@@ -51,12 +55,12 @@ export default function Battery({ navigation }) {
     <View style={styles.container}>
       <View style={styles.topArea}>
         <View style={styles.titleArea}>
-          <Text style={styles.title}>Battery Status</Text>
+          <Text style={styles.title}>Battery</Text>
         </View>
       </View>
       <View style={styles.batteryListArea}>
         <FlatList
-          data={data}
+          data={fetchData}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           extraData={selectedRoom}

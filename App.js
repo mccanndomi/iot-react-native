@@ -1,60 +1,23 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { Client, Message, Paho, MQTT } from "react-native-paho-mqtt";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./pages/Home";
 import Battery from "./pages/Battery";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Stats from "./pages/Stats";
+import { DataProvider } from "./services/DataContext"
 
 export default function App() {
-  //======================== BROKER ========================
-
-  //Set up an in-memory alternative to global localStorage
-  const myStorage = {
-    setItem: (key, item) => {
-      myStorage[key] = item;
-    },
-    getItem: (key) => myStorage[key],
-    removeItem: (key) => {
-      delete myStorage[key];
-    },
-  };
-
-  // Create a client instance
-  const client = new Client({
-    uri: "ws://test.mosquitto.org:8080/ws",
-    clientId: "e298506537834c0d9246e028f1266c4c",
-    storage: myStorage,
-  });
-
-  // set event handlers
-  client.on("connectionLost", (responseObject) => {
-    if (responseObject.errorCode !== 0) {
-      console.log(responseObject.errorMessage);
-    }
-  });
-  client.on("messageReceived", (message) => {
-    console.log(message.payloadString);
-  });
-
-  // connect the client
-  client.connect().then(() => {
-    // Once a connection has been made, make a subscription and send a message.
-    console.log("onConnect");
-    return client.subscribe("swen325/a3");
-  });
-
-  //========================================================
 
   const Tab = createBottomTabNavigator();
 
   return (
+    <DataProvider>
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Battery"
+        initialRouteName="Stats"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -90,6 +53,7 @@ export default function App() {
         <Tab.Screen name="Battery" component={Battery} />
       </Tab.Navigator>
     </NavigationContainer>
+    </DataProvider>
   );
 }
 
